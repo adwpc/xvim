@@ -61,14 +61,14 @@ you can share some good plugins with me.
 |php|★|★|☆|★★☆|★★|
 |...|...|...|...|...|...|
 
-##support keys
+##support keys (you can diy keys in ~/.vim/vim/key.vim)
 
 |key|info|
 |---|---|
 |,|leader key|
 |,pp|enable/disable paste mode|
-|,bb|set fold/unfold all key|
-|,ba(or blank)|fold/unfold current block|
+|,bb|fold/unfold all code bolcks|
+|,ba(or blank)|fold/unfold current block|
 |,cc|comment code|
 |,cu|uncomment code|
 |,uu|switch to next buffer|
