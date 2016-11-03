@@ -15,7 +15,7 @@ you can share some good plugins with me.
 |~/.vim/bundle/|plugin installed dir|
 |~/.vim/colors/|colorscheme installed dir|
 |~/.vim/tags/|tags installed dir|
-|~/.vim/UltiSnips/|snips collected dir|
+|~/.vim/snips/|snips collected dir|
 |~/.vim/ycm/|.ycm\_extra\_conf.py dir|
 |~/.vim/dicts/|dictionary dir|
 
