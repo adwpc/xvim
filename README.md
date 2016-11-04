@@ -104,3 +104,10 @@ you can share some good plugins with me.
 	#install vimrc
 	./ubuntu_install vimrc
 	
+    #install new vim to /usr/local/vim if you need, default vim in centos6 may be too old
+    ./centos_install centos6_vim
+    ./centos_install centos7_vim
+
+    #install vimrc
+    ./centos_install centos6_vimrc
+    ./centos_install centos7_vimrc

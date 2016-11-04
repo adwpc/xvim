@@ -147,7 +147,8 @@ let g:syntastic_auto_loc_list=0
 let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=1
 let g:syntastic_aggregate_errors=1
-au filetype go set dictionary+=~/.vim/dicts/golang.dic
+
+" au filetype go set dictionary+=~/.vim/dicts/golang.dic
 
 "-------------------javacomplete2------------
 au FileType java setlocal omnifunc=javacomplete#Complete

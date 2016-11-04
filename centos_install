@@ -1,0 +1,122 @@
+#!/bin/bash
+#it will update your packages !
+
+OBJ=""
+CURDIR=$PWD
+INSTALLLOG=$CURDIR"/$0.log"
+CORES=`cat /proc/cpuinfo | grep "processor" | wc -l`
+
+function ct7_vim_inst()
+{
+    #install deps
+    sudo yum install -y git gcc gcc-c++ lua-devel ruby-devel perl-devel ncurses-devel make python-devel cmake perl-ExtUtils-Embed
+
+    #install new vim
+    wget http://luajit.org/download/LuaJIT-2.0.4.tar.gz
+    tar xzvf LuaJIT-2.0.4.tar.gz && cd LuaJIT-2.0.4 && make -j$CORES && sudo make install
+    git clone https://github.com/vim/vim.git /tmp/vim
+    cd /tmp/vim && ./configure --prefix=/usr/local/vim --enable-multibyte --enable-fontset --enable-xim --enable-gui=auto --enable-cscope --with-x --with-compiledby=adam --with-luajit --enable-luainterp=dynamic --enable-pythoninterp=yes --enable-pythoninterp=dynamic --enable-python3interp=dynamic --with-python-config-dir=/usr/lib64/python2.7/config --enable-rubyinterp=dynamic --enable-rubyinterp=yes --enable-perlinterp=yes
+    make -j$CORES && sudo make install
+    sudo mv /usr/bin/vim /usr/bin/vim.bak
+    sudo ln -s /usr/local/vim/bin/vim /usr/bin/vim
+    cd $CURDIR
+}
+
+function ct6_vim_inst()
+{
+    #install deps
+    sudo yum install -y git gcc gcc-c++ lua-devel ruby-devel perl-devel ncurses-devel make python-devel cmake perl-ExtUtils-Embed
+
+    #install python2.7
+    python2_inst
+
+    #install new vim
+    wget http://luajit.org/download/LuaJIT-2.0.4.tar.gz
+    tar xzvf LuaJIT-2.0.4.tar.gz && cd LuaJIT-2.0.4 && make -j$CORES && sudo make install
+    git clone https://github.com/vim/vim.git /tmp/vim
+    cd /tmp/vim && ./configure --prefix=/usr/local/vim --enable-multibyte --enable-fontset --enable-xim --enable-gui=auto --enable-cscope --with-x --with-compiledby=adam --with-luajit --enable-luainterp=dynamic --enable-pythoninterp=yes --enable-pythoninterp=dynamic --enable-python3interp=dynamic --with-python-config-dir=/usr/local/python2.7/lib/python2.7/config --enable-rubyinterp=dynamic --enable-rubyinterp=yes --enable-perlinterp=yes
+    make -j$CORES && sudo make install
+    sudo mv /usr/bin/vim /usr/bin/vim.bak
+    sudo ln -s /usr/local/vim/bin/vim /usr/bin/vim
+    cd $CURDIR
+}
+
+function ct6_vimrc_inst()
+{
+    #install vim config and plugin
+    mv ~/.vimrc ~/.vimrc.bak
+    mv ~/.vim ~/.vim.bak
+    cp -rf .vim ~
+    cp -rf .vimrc ~
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    vim -u ~/.vimrc -c ":PluginInstall" -c ":q" -c ":q"
+    
+    #install gcc4.9
+    gcc_inst
+
+    #install ycm
+    cd ~/.vim/bundle/YouCompleteMe/ && git submodule update --init --recursive && ./install.py --all
+
+    #install vim-go bins
+    vim -u ~/.vimrc -c ":GoInstallBinaries" -c ":q" /tmp/tmp.go
+    
+}
+
+function ct7_vimrc_inst()
+{
+    #install vim config and plugin
+    mv ~/.vimrc ~/.vimrc.bak
+    mv ~/.vim ~/.vim.bak
+    cp -rf .vim ~
+    cp -rf .vimrc ~
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    vim -u ~/.vimrc -c ":PluginInstall" -c ":q" -c ":q"
+    
+    #install ycm
+    cd ~/.vim/bundle/YouCompleteMe/ && git submodule update --init --recursive && ./install.py --all
+
+    #install vim-go bins
+    vim -u ~/.vimrc -c ":GoInstallBinaries" -c ":q" /tmp/tmp.go
+    
+}
+
+function python2_inst()
+{
+    yum install -y gcc gcc-c++
+    mkdir -p python2 && cd python2
+    wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz
+    tar -xvf Python-2.7.12.tgz
+    cd Python-2.7.12 && ./configure --prefix=/usr/local/python2.7 --with-threads --enable-shared
+    make -j$CORES && sudo make install altinstall
+    sudo ln -s /usr/local/python2.7/lib/libpython2.7.so /usr/lib
+    sudo ln -s /usr/local/python2.7/lib/libpython2.7.so.1.0 /usr/lib
+    sudo ln -s /usr/local/python2.7/bin/python2.7 /usr/local/bin
+    sudo /sbin/ldconfig -v
+    sudo mv /usr/bin/python /usr/bin/python.bak
+    sudo ln -s /usr/local/bin/python2.7 /usr/bin/python
+    sudo sed -i "s/python/python2.6/g" /usr/bin/yum
+
+}
+
+function gcc_inst()
+{
+    yum install -y policycoreutils-python
+    wget https://copr.fedoraproject.org/coprs/rhscl/devtoolset-3/repo/epel-6/rhscl-devtoolset-3-epel-6.repo -O /etc/yum.repos.d/rhscl-devtoolset-3-epel-6.repo
+    yum --disablerepo='*' --enablerepo='rhscl-devtoolset-3' list
+    yum --disablerepo='*' --enablerepo='rhscl-devtoolset-3' install devtoolset-3-gcc devtoolset-3-gcc-c++
+    scl enable devtoolset-3 bash
+}
+
+if [ "$1" != ""  ];then
+    OBJ=$1
+fi
+case "$OBJ" in
+    centos6_vim) ct6_vim_inst;;
+    centos7_vim) ct7_vim_inst;;
+    centos6_vimrc) ct6_vimrc_inst;;
+    centos7_vimrc) ct7_vimrc_inst;;
+    *)  echo "Usage: {centos6_vim|centos6_vimrc|centos7_vim|centos7_vimrc}" >&2
+        echo "tested in centos6|7" >&2
+        exit 1
+        ;;
+esac

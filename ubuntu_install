@@ -14,6 +14,7 @@ function vim_inst()
     sudo apt-get install -y git gcc g++ libluajit-5.1-dev ruby-dev libperl-dev ncurses-dev make python-dev cmake
 
     #install new vim
+    rm -rf /tmp/vim
     git clone https://github.com/vim/vim.git /tmp/vim
     cd /tmp/vim && ./configure --prefix=/usr/local/vim --enable-multibyte --enable-fontset --enable-xim --enable-gui=auto --enable-cscope --with-x --with-compiledby=adam --with-luajit --enable-luainterp=dynamic --enable-pythoninterp=yes --enable-pythoninterp=dynamic --enable-python3interp=dynamic --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu --enable-rubyinterp=dynamic --enable-rubyinterp=yes --enable-perlinterp=yes
     make -j$CORES && sudo make install
@@ -27,8 +28,8 @@ function vimrc_inst()
     #install vim config and plugin
     mv ~/.vimrc ~/.vimrc.bak
     mv ~/.vim ~/.vim.bak
-    mv .vim ~
-    mv .vimrc ~
+    cp -rf .vim ~
+    cp -rf .vimrc ~
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     vim -u ~/.vimrc -c ":PluginInstall" -c ":q" -c ":q"
     cd ~/.vim/bundle/YouCompleteMe/ && ./install.py --all
