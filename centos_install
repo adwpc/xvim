@@ -43,6 +43,9 @@ function ct6_vim_inst()
 
 function ct6_vimrc_inst()
 {
+    #install deps
+    sudo yum install -y git gcc gcc-c++ python cmake
+
     #install vim config and plugin
     mv ~/.vimrc ~/.vimrc.bak
     mv ~/.vim ~/.vim.bak
@@ -64,6 +67,9 @@ function ct6_vimrc_inst()
 
 function ct7_vimrc_inst()
 {
+    #install deps
+    sudo yum install -y git gcc gcc-c++ python cmake
+
     #install vim config and plugin
     mv ~/.vimrc ~/.vimrc.bak
     mv ~/.vim ~/.vim.bak
