@@ -1,0 +1,37 @@
+#!/bin/bash
+#it will update your packages !
+
+OBJ=""
+CURDIR=$PWD
+INSTALLLOG=$CURDIR"/$0.log"
+CORES=4
+
+
+function vimrc_inst()
+{
+    #install vim config and plugin
+    mv ~/.vimrc ~/.vimrc.bak
+    mv ~/.vim ~/.vim.bak
+    cp -rf .vim ~
+    cp -rf .vimrc ~
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    vim -u ~/.vimrc -c ":PluginInstall" -c ":q" -c ":q"
+    
+    #install ycm
+    cd ~/.vim/bundle/YouCompleteMe/ && git submodule update --init --recursive && ./install.py --all
+
+    #install vim-go bins
+    vim -u ~/.vimrc -c ":GoInstallBinaries" -c ":q" /tmp/tmp.go
+    
+}
+
+if [ "$1" != ""  ];then
+    OBJ=$1
+fi
+case "$OBJ" in
+    vimrc) vimrc_inst;;
+    *)  echo "Usage: {vimrc}" >&2
+        echo "tested in mac 10.12" >&2
+        exit 1
+        ;;
+esac
