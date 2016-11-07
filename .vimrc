@@ -31,6 +31,7 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-lua-ftplugin'
 Plugin 'pangloss/vim-javascript'
 Plugin 'sentientmachine/erics_vim_syntax_and_color_highlighting'
+Plugin 'Yggdroot/indentLine'
 call vundle#end()
 filetype plugin indent on
 "----------------------------------

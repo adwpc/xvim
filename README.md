@@ -21,6 +21,7 @@ you can share some good plugins with me.
 
 ##plugin list
 
+
 |plugin|info|
 |---|---|
 |[VundleVim/Vundle.vim](https://github.com/VundleVim/Vundle.vim)|plugin manager|
@@ -45,7 +46,7 @@ you can share some good plugins with me.
 |[xolox/vim-lua-ftplugin](https://github.com/xolox/vim-lua-ftplugin)|lua file type plug-in|
 |[pangloss/vim-javascript](https://github.com/pangloss/vim-javascript)|syntax highlighting and improved indentation|
 |[sentientmachine/erics_vim_syntax_and_color_highlighting](https://github.com/sentientmachine/erics_vim_syntax_and_color_highlighting)|highlight code: java, python, html, javascript, php, css, bash, haml, viml|
-
+|[Yggdroot/indentLine](https://github.com/Yggdroot/indentLine)|display thin vertical lines for code indented with spaces|
 ##support languages and features (1★=2☆)
 
 |language|highlight|autocomplete|syntax|snips|need improvement|
