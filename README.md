@@ -98,16 +98,8 @@ you can share some good plugins with me.
 	git clone https://github.com/adwpc/vim.git
 	cd vim
 	
-	#install new vim to /usr/local/vim if you need
-	./ubuntu_install vim
-	
 	#install vimrc
-	./ubuntu_install vimrc
+	./install vimrc
 	
-    #install new vim to /usr/local/vim if you need, default vim in centos6 may be too old
-    ./centos_install centos6_vim
-    ./centos_install centos7_vim
-
-    #install vimrc
-    ./centos_install centos6_vimrc
-    ./centos_install centos7_vimrc
+    #if you need new vim or some deps, see ./install
+    ./install
