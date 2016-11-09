@@ -72,7 +72,8 @@ function AddLuaTitle()
             return
         endif
         let n = n + 1
-    endwhile call AddNewLuaTitle()
+    endwhile
+    call AddNewLuaTitle()
 endfunction
 
 " set fold/unfold all key
