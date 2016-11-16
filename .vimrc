@@ -23,15 +23,16 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'derekwyatt/vim-fswitch'
 Plugin 'vim-scripts/DrawIt'
 Plugin 'artur-shaik/vim-javacomplete2'
-Plugin 'scrooloose/syntastic'
+Plugin 'vim-syntastic/syntastic'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-lua-ftplugin'
 Plugin 'pangloss/vim-javascript'
 Plugin 'sentientmachine/erics_vim_syntax_and_color_highlighting'
 Plugin 'Yggdroot/indentLine'
+Plugin 'tbastos/vim-lua'
+Plugin 'adwpc/cscopex'
 call vundle#end()
 filetype plugin indent on
 "----------------------------------

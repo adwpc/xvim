@@ -38,16 +38,17 @@ you can share some good plugins with me.
 |[Chiel92/vim-autoformat](https://github.com/Chiel92/vim-autoformat)|format code with one button press|
 |[scrooloose/nerdcommenter](https://github.com/scrooloose/nerdcommenter)|comment code with on button press|
 |[octol/vim-cpp-enhanced-highlight](https://github.com/octol/vim-cpp-enhanced-highlight)|highlighting key word in C++11/14/17|
-|[derekwyatt/vim-fswitch](https://github.com/derekwyatt/vim-fswitch)|switch between .h .hpp and .c .cpp and so on|
 |[vim-scripts/DrawIt](https://github.com/vim-scripts/DrawIt)|draw lines in vim|
 |[artur-shaik/vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2)|java complete engine|
-|[scrooloose/syntastic](https://github.com/scrooloose/syntastic)|syntax check for many languages|
+|[vim-syntastic/syntastic](https://github.com/vim-syntastic/syntastic)|syntax check for many languages|
 |[xolox/vim-misc](https://github.com/xolox/vim-misc)|needed by vim-lua-ftplugin|
 |[xolox/vim-lua-ftplugin](https://github.com/xolox/vim-lua-ftplugin)|lua file type plug-in|
 |[pangloss/vim-javascript](https://github.com/pangloss/vim-javascript)|syntax highlighting and improved indentation|
 |[sentientmachine/erics_vim_syntax_and_color_highlighting](https://github.com/sentientmachine/erics_vim_syntax_and_color_highlighting)|highlight code: java, python, html, javascript, php, css, bash, haml, viml|
 |[Yggdroot/indentLine](https://github.com/Yggdroot/indentLine)|display thin vertical lines for code indented with spaces|
-##support languages and features (1★=2☆)
+|[xolox/vim-lua-ftplugin](https://github.com/tbastos/vim-lua)|lua highlight|
+|[adwpc/cscopex](https://github.com/adwpc/cscopex)|cscope powerful engine|
+##support languages and features (1★=2☆)
 
 |language|highlight|autocomplete|syntax|snips|need improvement|
 |---|---|---|---|---|---|
@@ -67,30 +68,24 @@ you can share some good plugins with me.
 |key|info|
 |---|---|
 |,|leader key|
-|,pp|enable/disable paste mode|
-|,bb|fold/unfold all code bolcks|
-|,ba(or blank)|fold/unfold current block|
-|,cc|comment code|
-|,cu|uncomment code|
-|,uu|switch to next buffer|
-|,ub|switch to previous buffer|
+|,zi|fold/unfold all code bolcks|
+|,za(or blank)|fold/unfold current block|
+|//|comment/uncomment code|
+|\<tab\>|switch to next buffer|
+|\<shift-tab\>|switch to previous buffer|
 |,ll|open nerd tree on left|
 |,rr|open tag bar on right|
-|,dt|jump to the golang definition|
+|gd|jump to the c-family/golang definition|
 |,ff|auto format code|
-|,sw|switch between .h/.hpp and .c/.cpp/...|
-|,cs|cscope find symbols|
-|,cg|cscope find defines|
-|,ct|cscope find strings|
-|,,|cscope jump to next result|
-|,.|cscope jump to previous result|
-|,ce|cscope close result|
-|,yg|ycm GoToDefinitionElseDeclaration|
-|,ue|add your own snips|
-|,en|jump to next error|
-|,ep|jump to previous error|
-|,eo|open error list|
-|,ee|close error list|
+|,fs|cscope find symbols|
+|,fa|cscope find in interactive|
+|,ft|cscope find strings|
+|\<right\>|cscope jump to next result|
+|\<left\>|cscope jump to previous result|
+|<|open/close cscope result list|
+|\<down\>|jump to next error|
+|\<up\>|jump to previous error|
+|>|open/close error list|
 |,tt|add/update your code title|
 |...|...|
 

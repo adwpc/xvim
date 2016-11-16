@@ -13,17 +13,22 @@ set t_Co=256                                    " tell Vim that the terminal sup
 au BufReadPost * if line("'\"") > 0|if 
 \line("'\"") <= line("$")|exe("norm '\"")
 \|else|exe "norm $"|endif|endif                 " remember the current line when quit"
-set backspace=indent,eol,start                  " set backspace can delete all words"
 set vb t_vb=                                    " close bell voice"
-set foldmethod=manual                           " fold type"
-set foldlevel=1                                 " fold level"
+set backspace=indent,eol,start                  " set backspace can delete all words"
+" set foldmethod=manual                           " fold type"
+" set foldlevel=1                                 " fold level"
 
 "-----------color scheme----------
 " Solarized"
 " let g:solarized_termcolors=256
-" set t_Co=256
 " set background=dark
-" colorscheme solarized
+" let g:solarized_termtrans=1
+" let g:solarized_contrast="normal"
+" let g:solarized_visibility="normal"
+" color solarized
+" highlight clear SignColumn
+" highlight clear LineNr 
+
 
 " molokai_dark"
 colorscheme molokai_dark
