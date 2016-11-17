@@ -35,16 +35,38 @@ import ycm_core
 # compilation database set (by default, one is not set).
 # CHANGE THIS LIST OF FLAGS. YES, THIS IS THE DROID YOU HAVE BEEN LOOKING FOR.
 flags = [
-'-std=c99'
-#'-isystem','~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/BoostParts/boost',
-#'-isystem','~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/llvm/include',
-#'-isystem','~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/llvm/tools/clang/include',
-#'-I','~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/ClangCompleter',
+'-Wall',
+'-Wextra',
+'-Werror',
+'-Wc++98-compat',
+'-Wno-long-long',
+'-Wno-variadic-macros',
+'-fexceptions',
+'-DNDEBUG',
+'-DUSE_CLANG_COMPLETER',
+'-std=c99',
+'-x','c',
+'-nostdinc',
+#ubuntu centos
 '-isystem','/usr/include',
-'-isystem', '/usr/include/c++/4.8',
+#ubuntu
 '-isystem','/usr/include/x86_64-linux-gnu',
+#centos6
+'-isystem', '/usr/include/c++/4.4.4',
+#centos7
+'-isystem', '/usr/include/c++/4.8.2',
+#ubuntu14.04
+'-isystem', '/usr/include/c++/4.8',
 '-isystem','/usr/include/x86_64-linux-gnu/c++/4.8',
+#ubuntu16.04
+'-isystem','/usr/include/c++/5',
+'-isystem','/usr/include/x86_64-linux-gnu/c++/5',
+#3rdparty
+
+#personal
 '-I','.',
+
+
 ]
 
 
