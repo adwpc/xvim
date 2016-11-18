@@ -9,18 +9,18 @@ set nofoldenable " Disable folding by default, we'll enable it with a hotkey"
 
 "-----------airline---------------
 " switch to next buffer
-nnoremap <tab> :bn<cr>
-nnoremap <s-tab> :bp<cr>
+nnoremap <silent> <tab> :bn<cr>
+nnoremap <silent> <s-tab> :bp<cr>
 
 "-----------NERDTree-------------
-nnoremap <leader>ll :NERDTreeToggle<cr><c-w>p
+nnoremap <silent> <leader>ll :NERDTreeToggle<cr><c-w>p
 
 "-----------tagbar--------------
-nnoremap <leader>rr :TagbarToggle<cr>
+nnoremap <silent> <leader>rr :TagbarToggle<cr>
 
 "------------nerdcommenter------------
-nnoremap // :call NERDComment(0,"toggle")<CR>
-vnoremap // :call NERDComment(0,"toggle")<CR>
+nnoremap <silent> // :call NERDComment(0,"toggle")<CR>
+vnoremap <silent> // :call NERDComment(0,"toggle")<CR>
 
 "------------vim-autoformat----------
 noremap <leader>ff :Autoformat<cr>
@@ -88,8 +88,8 @@ nnoremap <silent> < :call QuickFixToggle()<cr>
 au filetype c,cpp,objc,objcpp,cs nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<cr>
 " nnoremap <leader>yf :YcmCompleter GoToDefinition<cr>
 " nnoremap <leader>yc :YcmCompleter GoToDeclaration<cr>
-" nnoremap <leader>yo :lopen<cr>  
-" nnoremap <leader>ye :lclose<cr> 
+" nnoremap <leader>yo :lopen<cr>
+" nnoremap <leader>ye :lclose<cr>
 " inoremap <leader>. <C-x><C-o>
 " nnoremap <leader>yd :YcmForceCompileAndDiagnostics <cr>
 " nnoremap <leader>ya :YcmDiags<cr>
@@ -105,10 +105,6 @@ nnoremap <silent> <down> :call LocationNext()<cr>
 nnoremap <silent> > :call LocationToggle()<cr>
 
 " -----------------other--------------------
-au filetype c nmap <leader>tt :call AddTitle()<cr>
-au filetype go nmap <leader>tt :call AddTitle()<cr>
+au filetype c,cpp,go,lua,java,javascript nmap <leader>tt :call AddTitle()<cr>
 au filetype lua nmap <leader>tt :call AddLuaTitle()<cr>
-au filetype java nmap <leader>tt :call AddTitle()<cr>
-au filetype javascript nmap <leader>tt :call AddTitle()<cr>
-
 
