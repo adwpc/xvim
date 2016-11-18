@@ -1,6 +1,51 @@
 ##a simple show
+![show](./show.gif)
+##layout
 ![vim](./vim.png)
+
+##support keys (you can diy keys in ~/.vim/vim/key.vim)
+
+|key|info|
+|---|---|
+|,|leader key|
+|,zi|fold/unfold all code bolcks|
+|,za(or blank)|fold/unfold current block|
+|//|comment/uncomment code|
+|\<tab\>|switch to next buffer|
+|\<shift-tab\>|switch to previous buffer|
+|,ll|open nerd tree on left|
+|,rr|open tag bar on right|
+|gd|jump to the c-family/golang definition|
+|,ff|auto format code|
+|,fs|cscope find symbols|
+|,fa|cscope find in interactive|
+|,ft|cscope find strings|
+|\<right\>|cscope jump to next result|
+|\<left\>|cscope jump to previous result|
+|<|open/close cscope result list|
+|\<down\>|jump to next error|
+|\<up\>|jump to previous error|
+|>|open/close error list|
+|,tt|add/update your code title|
+|...|...|
+
+##support languages and features (1★=2☆)
+
+|language|highlight|autocomplete|syntax|snips|need improvement|
+|---|---|---|---|---|---|
+|c|★★☆|★★☆|★★|★★☆|☆|
+|cpp|★★☆|★★☆|★★☆|★★☆|☆|
+|golang|★★☆|★★☆|★★|★★☆|☆|
+|java|★★☆|★★☆|★★|★★☆|★|
+|lua|★☆|★☆|☆|★★☆|★☆|
+|python|★★|★☆|★★|★★☆|★★|
+|javascript|★|★★|☆|★★☆|★★|
+|html|★|★|☆|★★☆|★★|
+|php|★|★|☆|★★☆|★★|
+|...|...|...|...|...|...|
+
 ##plugins and resources path
+
 this is a simple and powerful configuration of vim, you can diy your own vim base on it.
 you can share some good plugins with me.
 
@@ -20,7 +65,6 @@ you can share some good plugins with me.
 |~/.vim/dicts/|dictionary dir|
 
 ##plugin list
-
 
 |plugin|info|
 |---|---|
@@ -48,46 +92,6 @@ you can share some good plugins with me.
 |[Yggdroot/indentLine](https://github.com/Yggdroot/indentLine)|display thin vertical lines for code indented with spaces|
 |[xolox/vim-lua-ftplugin](https://github.com/tbastos/vim-lua)|lua highlight|
 |[adwpc/cscopex](https://github.com/adwpc/cscopex)|cscope powerful engine|
-##support languages and features (1★=2☆)
-
-|language|highlight|autocomplete|syntax|snips|need improvement|
-|---|---|---|---|---|---|
-|c|★★☆|★★☆|★★|★★☆|☆|
-|cpp|★★☆|★★☆|★★☆|★★☆|☆|
-|golang|★★☆|★★☆|★★|★★☆|☆|
-|java|★★☆|★★☆|★★|★★☆|★|
-|lua|★☆|★☆|☆|★★☆|★☆|
-|python|★★|★☆|★★|★★☆|★★|
-|javascript|★|★★|☆|★★☆|★★|
-|html|★|★|☆|★★☆|★★|
-|php|★|★|☆|★★☆|★★|
-|...|...|...|...|...|...|
-
-##support keys (you can diy keys in ~/.vim/vim/key.vim)
-
-|key|info|
-|---|---|
-|,|leader key|
-|,zi|fold/unfold all code bolcks|
-|,za(or blank)|fold/unfold current block|
-|//|comment/uncomment code|
-|\<tab\>|switch to next buffer|
-|\<shift-tab\>|switch to previous buffer|
-|,ll|open nerd tree on left|
-|,rr|open tag bar on right|
-|gd|jump to the c-family/golang definition|
-|,ff|auto format code|
-|,fs|cscope find symbols|
-|,fa|cscope find in interactive|
-|,ft|cscope find strings|
-|\<right\>|cscope jump to next result|
-|\<left\>|cscope jump to previous result|
-|<|open/close cscope result list|
-|\<down\>|jump to next error|
-|\<up\>|jump to previous error|
-|>|open/close error list|
-|,tt|add/update your code title|
-|...|...|
 
 ##install
 
