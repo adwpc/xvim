@@ -5,33 +5,34 @@
 
 ##support keys (you can diy keys in ~/.vim/vim/key.vim)
 
-|key|info|
-|---|---|
-|,|leader key|
-|,zi|fold/unfold all code bolcks|
-|,za(or blank)|fold/unfold current block|
-|//|comment/uncomment code|
-|\<tab\>|switch to next buffer|
-|\<shift-tab\>|switch to previous buffer|
-|,ll|open nerd tree on left|
-|,rr|open tag bar on right|
-|gd|jump to the c-family/golang definition|
-|,ff|auto format code|
-|,fs|cscope find symbols|
-|,fa|cscope find in interactive|
-|,ft|cscope find strings|
-|\<right\>|cscope jump to next result|
-|\<left\>|cscope jump to previous result|
-|<|open/close cscope result list|
-|\<down\>|jump to next error|
-|\<up\>|jump to previous error|
-|>|open/close error list|
-|,tt|add/update your code title|
-|...|...|
+|key|info|说明|
+|---|---|---|
+|,|leader key|前缀键|
+|,zi|fold/unfold all code bolcks|整体折叠|
+|,za(or blank)|fold/unfold current block|局部折叠|
+|//|comment/uncomment code|注释/反注释|
+|\<tab\>|switch to next buffer|切换下一缓存|
+|\<shift-tab\>|switch to previous buffer|切换前一缓存|
+|,ll|open nerd tree on left|打开文件浏览器|
+|,rr|open tag bar on right|打开符号浏览器|
+|gd|jump to the c-family/golang definition|c系语言/golang跳转到定义|
+|,ff|auto format code|自动格式化|
+|,fs|cscope find symbols|查找符号|
+|,fa|cscope find in interactive|交互查找|
+|,ft|cscope find strings|查找字符串|
+|\<right\>|cscope jump to next result|跳转到下一结果|
+|\<left\>|cscope jump to previous result|跳转到前一结果|
+|<|open/close cscope result list|打开/关闭查找结果列表|
+|\<down\>|jump to next error|跳转到下一错误|
+|\<up\>|jump to previous error|跳转到前一错误|
+|>|open/close error list|打开/关闭错误列表|
+|,tt|add/update your code title|添加/更新文件说明|
+|...|...|...|
+
 
 ##support languages and features (1★=2☆)
 
-|language|highlight|autocomplete|syntax|snips|need improvement|
+|language(语言)|highlight(高亮)|autocomplete(补全)|syntax(查错)|snips(补全块)|todo(待改进)|
 |---|---|---|---|---|---|
 |c|★★☆|★★☆|★★|★★☆|☆|
 |cpp|★★☆|★★☆|★★☆|★★☆|☆|
