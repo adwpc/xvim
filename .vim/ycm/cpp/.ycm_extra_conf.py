@@ -38,7 +38,7 @@ flags = [
 '-Wall',
 '-Wextra',
 '-Werror',
-'-Wc++98-compat',
+'-Wc++11-compat',
 '-Wno-long-long',
 '-Wno-variadic-macros',
 '-fexceptions',
@@ -47,6 +47,8 @@ flags = [
 '-std=c++11',
 '-x','c++',
 '-nostdinc++',
+# using for MAC OS
+'-isystem', '/System/Library/Frameworks/Python.framework/Headers',
 #ubuntu centos
 '-isystem','/usr/include',
 #ubuntu
