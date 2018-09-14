@@ -1,0 +1,172 @@
+#!/bin/bash
+
+OBJ=""
+CURDIR=$PWD
+INSTALLLOG=$CURDIR"/$0.log"
+# CORES=4
+CORES=`cat /proc/cpuinfo | grep "processor" | wc -l`
+
+function centos7_vim_inst()
+{
+    #install deps
+    sudo yum install -y git gcc gcc-c++ lua-devel ruby-devel perl-devel ncurses-devel make python-devel cmake perl-ExtUtils-Embed
+
+    #install new vim
+    git clone https://github.com/vim/vim.git /tmp/vim
+    cd /tmp/vim && ./configure --prefix=/usr/local/vim --enable-multibyte --enable-fontset --enable-xim --enable-gui=auto --enable-cscope --with-x --with-compiledby=adam --with-luajit --enable-luainterp=dynamic --enable-pythoninterp=yes --enable-pythoninterp=dynamic --enable-python3interp=dynamic --with-python-config-dir=/usr/lib64/python2.7/config --enable-rubyinterp=dynamic --enable-rubyinterp=yes --enable-perlinterp=yes
+    make -j$CORES && sudo make install
+    sudo mv /usr/bin/vim /usr/bin/vim.bak
+    sudo ln -s /usr/local/vim/bin/vim /usr/bin/vim
+    cd $CURDIR
+}
+
+function centos6_vim_inst()
+{
+    #install deps
+    sudo yum install -y git gcc gcc-c++ lua-devel ruby-devel perl-devel ncurses-devel make python-devel cmake perl-ExtUtils-Embed
+
+    #install python2.7
+    centos6_python2_inst
+
+    #install new vim
+    wget http://luajit.org/download/LuaJIT-2.0.4.tar.gz
+    tar xzvf LuaJIT-2.0.4.tar.gz && cd LuaJIT-2.0.4 && make -j$CORES && sudo make install
+    git clone https://github.com/vim/vim.git /tmp/vim
+    cd /tmp/vim && ./configure --prefix=/usr/local/vim --enable-multibyte --enable-fontset --enable-xim --enable-gui=auto --enable-cscope --with-x --with-compiledby=adam --with-luajit --enable-luainterp=dynamic --enable-pythoninterp=yes --enable-pythoninterp=dynamic --enable-python3interp=dynamic --with-python-config-dir=/usr/local/python2.7/lib/python2.7/config --enable-rubyinterp=dynamic --enable-rubyinterp=yes --enable-perlinterp=yes
+    make -j$CORES && sudo make install
+    sudo mv /usr/bin/vim /usr/bin/vim.bak
+    sudo ln -s /usr/local/vim/bin/vim /usr/bin/vim
+    cd $CURDIR
+}
+
+
+function centos6_python2_inst()
+{
+    yum install -y gcc gcc-c++
+    mkdir -p python2 && cd python2
+    wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz
+    tar -xvf Python-2.7.12.tgz
+    cd Python-2.7.12 && ./configure --prefix=/usr/local/python2.7 --with-threads --enable-shared
+    make -j$CORES && sudo make install altinstall
+    sudo ln -s /usr/local/python2.7/lib/libpython2.7.so /usr/lib
+    sudo ln -s /usr/local/python2.7/lib/libpython2.7.so.1.0 /usr/lib
+    sudo ln -s /usr/local/python2.7/bin/python2.7 /usr/local/bin
+    sudo /sbin/ldconfig -v
+    sudo mv /usr/bin/python /usr/bin/python.bak
+    sudo ln -s /usr/local/bin/python2.7 /usr/bin/python
+    sudo sed -i "s/python/python2.6/g" /usr/bin/yum
+
+}
+
+function centos6_gcc_inst()
+{
+    yum install -y policycoreutils-python
+    wget https://copr.fedoraproject.org/coprs/rhscl/devtoolset-3/repo/epel-6/rhscl-devtoolset-3-epel-6.repo -O /etc/yum.repos.d/rhscl-devtoolset-3-epel-6.repo
+    yum --disablerepo='*' --enablerepo='rhscl-devtoolset-3' list
+    yum --disablerepo='*' --enablerepo='rhscl-devtoolset-3' install devtoolset-3-gcc devtoolset-3-gcc-c++
+    scl enable devtoolset-3 bash
+}
+
+
+function ubuntu_vim_inst()
+{
+    #install deps
+    sudo apt-get update
+    sudo apt-get install -y git gcc g++ libluajit-5.1-dev ruby-dev libperl-dev ncurses-dev make python-dev cmake
+
+    #install new vim
+    rm -rf /tmp/vim
+    git clone https://github.com/vim/vim.git /tmp/vim
+    cd /tmp/vim && ./configure --prefix=/usr/local/vim --enable-multibyte --enable-fontset --enable-xim --enable-gui=auto --enable-cscope --with-x --with-compiledby=adam --with-luajit --enable-luainterp=dynamic --enable-pythoninterp=yes --enable-pythoninterp=dynamic --enable-python3interp=dynamic --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu --enable-rubyinterp=dynamic --enable-rubyinterp=yes --enable-perlinterp=yes
+    make -j$CORES && sudo make install
+    sudo mv /usr/bin/vim /usr/bin/vim.bak
+    sudo ln -s /usr/local/vim/bin/vim /usr/bin/vim
+    cd $CURDIR
+}
+
+
+function vimrc_inst()
+{
+    #install vim config and plugin
+    mv ~/.vimrc ~/.vimrc.bak.`date +%Y%m%d%H%M%S`
+    mv ~/.vim ~/.vim.bak.`date +%Y%m%d%H%M%S`
+    cp -rf .vimrc ~
+    cp -rf .vim ~
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    vim -u ~/.vimrc -c ":PlugInstall" -c ":q" -c ":q"
+    
+    #install ycm
+    #cd ~/.vim/bundle/YouCompleteMe/ && git submodule update --init --recursive && ./install.py --all
+
+    #install vim-go bins
+    vim -u ~/.vimrc -c ":GoInstallBinaries" -c ":q" /tmp/tmp.go
+    
+}
+
+# git1.9.5、fish、autojump
+function ubuntu_fish_inst()
+{
+    sudo apt-get -y update
+    sudo apt-get install -y gcc g++ make vim lrzsz aptitude autoconf libtool cmake dpkg-dev wget
+    wget https://www.kernel.org/pub/software/scm/git/git-1.9.5.tar.gz
+    sudo apt-get -y remove git fish
+    sudo apt-get -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
+    tar vzxf git-1.9.5.tar.gz
+    cd git-1.9.5 && ./configure && make -j4 && sudo make install
+    cd $CURDIR
+
+    sudo apt-get -y install libncurses5-dev
+    wget https://launchpad.net/~fish-shell/+archive/ubuntu/release-2/+files/fish_2.6.0.orig.tar.gz
+    tar zxvf fish_2.6.0.orig.tar.gz
+    cd fish-2.6.0 && ./configure --prefix=/usr/local/fish && make -j4 && sudo make install
+    cd $CURDIR
+    sudo sh -c 'echo "/usr/local/fish/bin/fish" >> /etc/shells'
+    export PATH=/usr/local/fish/bin/:$PATH
+    chsh -s /usr/local/fish/bin/fish
+    git clone https://github.com/oh-my-fish/oh-my-fish 
+    cd oh-my-fish && bin/install --offline
+    cd $CURDIR
+}
+
+function ubuntu_autojump_inst()
+{
+    sudo apt-get install -y python-dev python3-dev
+    git clone https://github.com/wting/autojump.git
+    cd autojump && sudo ./install.py
+    cd $CURDIR
+    sudo echo "[[ -s /home/adam/.autojump/etc/profile.d/autojump.sh ]] && source /home/adam/.autojump/etc/profile.d/autojump.sh" >> ~/.bashrc
+    sudo echo "if test -f /home/adam/.autojump/share/autojump/autojump.fish; . /home/adam/.autojump/share/autojump/autojump.fish; end" >> ~/.config/fish/config.fish
+    sudo echo "if test -f /home/adam/.autojump/share/autojump/autojump.fish; . /home/adam/.autojump/share/autojump/autojump.fish; end" >> ~/.local/share/omf/init.fish
+ 
+}
+
+function go_inst()
+{
+    wget https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz
+    sudo tar -C /usr/local -xzf go1.10.2.linux-amd64.tar.gz
+    sudo sh -c 'echo "export PATH=$PATH:/usr/local/go/bin" >> /etc/profile'
+    sudo echo "set -x PATH /usr/local/go/bin $PATH" >> ~/.config/fish/config.fish
+}
+
+
+if [ "$1" != ""  ];then
+    OBJ=$1
+fi
+case "$OBJ" in
+    vimrc) vimrc_inst;;
+    ubuntu_vim) ubuntu_vim_inst;;
+    centos6_vim) centos6_vim_inst;;
+    centos7_vim) centos7_vim_inst;;
+    centos6_gcc) centos6_gcc_inst;;
+    centos6_python2) centos6_python2_inst;;
+    ubuntu_fish) ubuntu_fish_inst;;
+    ubuntu_autojump) ubuntu_autojump_inst;;
+    go) go_inst;;
+
+    *)  echo "Usage: install {vimrc}" >&2
+        echo "if you need new vim, try install {ubuntu_vim|centos6_vim|centos7_vim|ubuntu_fish|ubuntu_autojump|go}" >&2
+        echo "if you need some deps, try install {centos6_gcc|centos6_python2}" >&2
+        exit 1
+        ;;
+esac
