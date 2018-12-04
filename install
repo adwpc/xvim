@@ -97,10 +97,7 @@ function vimrc_inst()
     vim -u ~/.vimrc -c ":PlugInstall" -c ":q" -c ":q"
     
     #install ycm
-    #cd ~/.vim/bundle/YouCompleteMe/ && git submodule update --init --recursive && ./install.py --all
-
-    #install vim-go bins
-    vim -u ~/.vimrc -c ":GoInstallBinaries" -c ":q" /tmp/tmp.go
+    cd ~/.vim/plugged/YouCompleteMe/ ; git submodule update --init --recursive ; ./install.py --all
     
 }
 

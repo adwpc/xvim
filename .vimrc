@@ -15,7 +15,7 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'majutsushi/tagbar'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'jiangmiao/auto-pairs'
 Plug 'Chiel92/vim-autoformat'
 Plug 'scrooloose/nerdcommenter'
@@ -24,7 +24,7 @@ Plug 'vim-scripts/DrawIt'
 Plug 'artur-shaik/vim-javacomplete2'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-lua-ftplugin'
-Plug 'pangloss/vim-javascript'
+" Plug 'pangloss/vim-javascript'
 Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting'
 " Plug 'Yggdroot/indentLine'
 Plug 'tbastos/vim-lua'
@@ -41,7 +41,7 @@ Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'maksimr/vim-jsbeautify', {'do': 'sudo npm install -g typescript js-beautify'}
 Plug 'plasticboy/vim-markdown'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --all' }
+Plug 'Valloric/YouCompleteMe'
 call plug#end()
 filetype plugin indent on
 "----------------------------------

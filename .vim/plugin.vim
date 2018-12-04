@@ -88,6 +88,8 @@ let g:formatterpath = ['/usr/bin']
 let g:formatdef_c = '"astyle --style=google --indent=spaces=4 --indent-switches --indent-cases --indent-namespaces --indent-modifiers --indent-switches --indent-labels --indent-preproc-block --indent-preproc-define --break-blocks --pad-oper --pad-comma --pad-header --delete-empty-lines --convert-tabs --add-brackets --delete-empty-lines"'
 let g:formatters_cpp = ['c']
 let g:formatters_c = ['c']
+let g:formatdef_eslint = '"SRC=eslint-temp-${RANDOM}.js; cat - >$SRC; eslint --fix $SRC >/dev/null 2>&1; cat $SRC | perl -pe \"chomp if eof\"; rm -f $SRC"'
+let g:formatters_javascript = ['eslint']
 
 
 "-----------------cscopex-----------------
@@ -123,6 +125,8 @@ let g:go_get_update = 0
 let g:go_fmt_fail_silently = 1
 let g:go_list_type = 'quickfix'
 let g:go_def_reuse_buffer = 1
+let g:go_gocode_propose_source = 1
+let g:go_gocode_propose_builtins = 1
 
 
 "-------------------javacomplete2------------
