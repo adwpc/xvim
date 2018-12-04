@@ -73,6 +73,7 @@ let g:ycm_key_list_previous_completion = ['<Up>']
 " let g:SuperTabDefaultCompletionType = '<c-tab>'
 let g:ycm_key_invoke_completion = '<C-Space>'
 set pumheight=20
+" let g:ycm_show_diagnostics_ui = 0
 
 
 "-----------------SirVer/ultisnips----------------------
@@ -125,8 +126,8 @@ let g:go_get_update = 0
 let g:go_fmt_fail_silently = 1
 let g:go_list_type = 'quickfix'
 let g:go_def_reuse_buffer = 1
-let g:go_gocode_propose_source = 1
-let g:go_gocode_propose_builtins = 1
+let g:go_gocode_propose_source = 0
+let g:go_gocode_propose_builtins = 0
 
 
 "-------------------javacomplete2------------

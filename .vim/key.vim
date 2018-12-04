@@ -9,7 +9,7 @@ set nofoldenable " Disable folding by default, we'll enable it with a hotkey"
 
 "-----------airline---------------
 " switch to next buffer
-nnoremap <silent> <tab> :bn<cr>
+nnoremap <silent> <tab> :ccl<cr>:bn<cr>
 nnoremap <silent> <s-tab> :bp<cr>
 
 "-----------NERDTree-------------
