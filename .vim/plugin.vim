@@ -73,7 +73,7 @@ let g:ycm_key_list_previous_completion = ['<Up>']
 " let g:SuperTabDefaultCompletionType = '<c-tab>'
 let g:ycm_key_invoke_completion = '<C-Space>'
 set pumheight=20
-" let g:ycm_show_diagnostics_ui = 0
+let g:ycm_show_diagnostics_ui = 0
 
 
 "-----------------SirVer/ultisnips----------------------

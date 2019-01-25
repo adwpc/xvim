@@ -1,5 +1,6 @@
 
 "----------base config-----------
+set encoding=utf-8
 set hlsearch                                    " high light search"
 set ts=4                                        " 1 tab = 4 space"
 set sw=4                                        " tab width"
