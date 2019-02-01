@@ -161,7 +161,7 @@ case "$OBJ" in
     ubuntu_autojump) ubuntu_autojump_inst;;
     go) go_inst;;
 
-    *)  echo "Usage: install {vimrc}" >&2
+    *)  echo "Usage: install vimrc" >&2
         echo "if you need new vim, try install {ubuntu_vim|centos6_vim|centos7_vim|ubuntu_fish|ubuntu_autojump|go}" >&2
         echo "if you need some deps, try install {centos6_gcc|centos6_python2}" >&2
         exit 1
