@@ -97,7 +97,7 @@ function vimrc_inst()
     vim -u ~/.vimrc -c ":PlugInstall" -c ":q" -c ":q"
     
     #install ycm
-    cd ~/.vim/plugged/YouCompleteMe/ ; git submodule update --init --recursive ; ./install.py --all
+    cd ~/.vim/plugged/YouCompleteMe/ ; git submodule update --init --recursive ; git submodule update --init --recursive ; ./install.py --all
     
 }
 
