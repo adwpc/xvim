@@ -8,6 +8,20 @@ wget https://raw.githubusercontent.com/adwpc/common_sh/master/common
 chmod u+x common
 . common
 
+function vimrc_dep_inst()
+{
+   if [[ "$OS_TYPE" =~ "CentOS" ]];then
+       sudo yum install -y ctags cscope
+   fi
+
+   if [[ "$OS_TYPE" == "Ubuntu" ]];then
+       sudo apt-get install -y ctags cscope
+   fi
+
+   if [[ "$OS_TYPE" == "Darwin" ]];then
+       brew install ctags cscope
+   fi
+}
 
 function vim8_inst()
 {
