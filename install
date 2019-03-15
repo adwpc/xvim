@@ -11,15 +11,17 @@ chmod u+x common
 function vimrc_dep_inst()
 {
    if [[ "$OS_TYPE" =~ "CentOS" ]];then
-       sudo yum install -y ctags cscope
+       sudo yum install -y ctags cscope nodejs
    fi
 
    if [[ "$OS_TYPE" == "Ubuntu" ]];then
        sudo apt-get install -y ctags cscope
+       curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+       sudo apt-get install -y nodejs
    fi
 
    if [[ "$OS_TYPE" == "Darwin" ]];then
-       brew install ctags cscope
+       brew install ctags cscope nodejs
    fi
 }
 
@@ -116,6 +118,9 @@ function ubuntu_vim_inst()
 
 function vimrc_inst()
 {
+    #install depends
+    vimrc_dep_inst
+
     #install vim config and plugin
     mv ~/.vimrc ~/.vimrc.bak.`date +%Y%m%d%H%M%S`
     mv ~/.vim ~/.vim.bak.`date +%Y%m%d%H%M%S`
