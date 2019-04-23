@@ -24,6 +24,8 @@ set nocompatible
 set backspace=indent,eol,start
 "防止插入字符自动拆行+缩进
 autocmd FileType * setlocal textwidth=0
+"close cscope warning
+set nocscopeverbose
 
 
 

@@ -12,16 +12,22 @@ function vimrc_dep_inst()
 {
    if [[ "$OS_TYPE" =~ "CentOS" ]];then
        sudo yum install -y ctags cscope nodejs
+       # eslint and eslint-config-standard
+       sudo npm --registry https://registry.npm.taobao.org install -g eslint eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard eslint-config-standard
    fi
 
    if [[ "$OS_TYPE" == "Ubuntu" ]];then
        sudo apt-get install -y ctags cscope
        curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
        sudo apt-get install -y nodejs
+       # eslint and eslint-config-standard
+       sudo npm --registry https://registry.npm.taobao.org install -g eslint eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard eslint-config-standard
    fi
 
    if [[ "$OS_TYPE" == "Darwin" ]];then
        brew install ctags cscope nodejs
+       # eslint and eslint-config-standard
+       sudo npm --registry https://registry.npm.taobao.org install -g eslint eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard eslint-config-standard
    fi
 }
 
