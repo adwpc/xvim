@@ -3,131 +3,185 @@
 #it will update your packages !
 
 OBJ=""
-mv common "/tmp/common`date +%Y%m%d%H%M%S`" > /dev/null 2>&1
-wget https://raw.githubusercontent.com/adwpc/common_sh/master/common
-chmod u+x common
-. common
+BE="NO"
+FE="NO"
+NVIM="NO"
+
+if [ -f /etc/os-release ]; then
+    # freedesktop.org and systemd
+    . /etc/os-release
+    CPU=`cat /proc/cpuinfo | grep "processor" | wc -l`
+    MEM=`free -b|grep "Mem"|awk -F' ' '{print $2}'`
+    OS_TYPE=$NAME
+    unset NAME
+    OS_VER=$VERSION_ID
+elif type lsb_release >/dev/null 2>&1; then
+    # linuxbase.org
+    CPU=`cat /proc/cpuinfo | grep "processor" | wc -l`
+    MEM=`free -b|grep "Mem"|awk -F' ' '{print $2}'`
+    OS_TYPE=$(lsb_release -si)
+    OS_VER=$(lsb_release -sr)
+elif [ -f /etc/lsb-release ]; then
+    # For some versions of Debian/Ubuntu without lsb_release command
+    . /etc/lsb-release
+    CPU=`cat /proc/cpuinfo | grep "processor" | wc -l`
+    MEM=`free -b|grep "Mem"|awk -F' ' '{print $2}'`
+    OS_TYPE=$DISTRIB_ID
+    OS_VER=$DISTRIB_RELEASE
+elif [ -f /etc/debian_version ]; then
+    # Older Debian/Ubuntu/etc.
+    CPU=`cat /proc/cpuinfo | grep "processor" | wc -l`
+    MEM=`free -b|grep "Mem"|awk -F' ' '{print $2}'`
+    OS_TYPE=Debian
+    OS_VER=$(cat /etc/debian_version)
+elif [ -f /etc/SuSe-release ]; then
+    # Older SuSE/etc.
+    CPU=`cat /proc/cpuinfo | grep "processor" | wc -l`
+    MEM=`free -b|grep "Mem"|awk -F' ' '{print $2}'`
+    ...
+elif [ -f /etc/redhat-release ]; then
+    # Older Red Hat, CentOS, etc.
+    CPU=`cat /proc/cpuinfo | grep "processor" | wc -l`
+    MEM=`free -b|grep "Mem"|awk -F' ' '{print $2}'`
+    ...
+else
+    # Fall back to uname, e.g. "Linux <version>", also works for BSD, etc.
+    OS_TYPE=$(uname -s)
+    OS_VER=$(uname -r)
+    CPU=`sysctl -n machdep.cpu.thread_count`
+    MEM=`sysctl -n hw.memsize`
+fi
+
+
+
+function config()
+{
+    read -r -p "Support go c/c++? [Y/n]" input
+    
+    case $input in
+    [yY][eE][sS] | [yY])
+        BE="YES"
+        ;;
+    
+    [nN][oO] | [nN]) ;;
+    
+    \
+        *)
+        echo "Invalid input..."
+        exit 1
+        ;;
+    esac
+    
+    read -r -p "Support javascript/html? [Y/n] " input
+    case $input in
+    [yY][eE][sS] | [yY])
+        FE="YES"
+        ;;
+    
+    [nN][oO] | [nN]) ;;
+    
+    \
+        *)
+        echo "Invalid input..."
+        exit 1
+        ;;
+    esac
+
+    read -r -p "Install NeoVim(recommend)? [Y/n] " input
+    case $input in
+    [yY][eE][sS] | [yY])
+        NVIM="YES"
+        ;;
+    
+    [nN][oO] | [nN]) ;;
+    
+    \
+        *)
+        echo "Invalid input..."
+        exit 1
+        ;;
+    esac
+}
 
 function vimrc_dep_inst()
 {
    if [[ "$OS_TYPE" =~ "CentOS" ]];then
-       sudo yum install -y ctags cscope nodejs
-       # eslint and eslint-config-standard
-       sudo npm --registry https://registry.npm.taobao.org install -g eslint eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard eslint-config-standard
+       if [[ "$BE" == "YES" ]];then
+           sudo yum install -y ctags cscope
+       fi
+       if [[ "$FE" == "YES" ]];then
+           sudo yum install -y nodejs
+           # support js html autoformat autocomplete syntastic
+           sudo npm --registry https://registry.npm.taobao.org install -g eslint eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard eslint-config-standard js-beautify
+       fi
    fi
 
    if [[ "$OS_TYPE" == "Ubuntu" ]];then
-       sudo apt-get install -y ctags cscope
-       curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-       sudo apt-get install -y nodejs
-       # eslint and eslint-config-standard
-       sudo npm --registry https://registry.npm.taobao.org install -g eslint eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard eslint-config-standard
+       if [[ "$BE" == "YES" ]];then
+           sudo apt-get install -y ctags cscope
+       fi
+       if [[ "$FE" == "YES" ]];then
+           curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+           sudo apt-get install -y nodejs
+           # support js html autoformat autocomplete syntastic
+           sudo npm --registry https://registry.npm.taobao.org install -g eslint eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard eslint-config-standard js-beautify
+      fi
    fi
 
    if [[ "$OS_TYPE" == "Darwin" ]];then
-       brew install ctags cscope nodejs
-       # eslint and eslint-config-standard
-       sudo npm --registry https://registry.npm.taobao.org install -g eslint eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard eslint-config-standard
+       if [[ "$BE" == "YES" ]];then
+           brew install ctags cscope
+       fi
+       if [[ "$FE" == "YES" ]];then
+           brew install nodejs
+           # support js html autoformat autocomplete syntastic
+           sudo npm --registry https://registry.npm.taobao.org install -g eslint eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard eslint-config-standard js-beautify
+       fi
    fi
 }
 
-function vim8_inst()
+function nvim_inst()
+{
+    cd /tmp
+    wget https://github.com/neovim/neovim/releases/download/v0.3.4/nvim-linux64.tar.gz
+    sudo tar xf nvim-linux64.tar.gz -C /usr/local/
+    sudo mv /bin/vim /bin/vim.bak
+    sudo ln -s /usr/local/nvim-linux64/bin/nvim  /bin/vim
+    mkdir -p ~/.config
+    ln -s ~/.vim ~/.config/nvim
+    ln -s ~/.vimrc ~/.config/nvim/init.vim
+    yum -y install epel-release
+    sudo yum install python python-pip
+    sudo pip install pynvim
+}
+
+function vim_inst()
 {
     if [[ "$OS_TYPE" =~ "CentOS" && "$OS_VER" == "7" ]];then
-        centos7_vim_inst
+        nvim_inst
     fi
 
     if [[ "$OS_TYPE" =~ "CentOS" && "$OS_VER" == "6" ]];then
-        centos6_vim_inst
+        nvim_inst
     fi
 
     if [[ "$OS_TYPE" == "Ubuntu" ]];then
-        ubuntu_vim_inst
+        nvim_inst
     fi
 
     if [[ "$OS_TYPE" == "Darwin" ]];then
-        mac_vim_inst
+        brew install neovim
     fi
-}
-
-function mac_vim_inst()
-{
-    brew install vim --with-cscope --with-python@2 --with-lua --override-system-vim
-}
-
-function centos7_vim_inst()
-{
-    cd /tmp
-    wget http://mirror.ghettoforge.org/distributions/gf/el/7/plus/x86_64/vim-common-8.0.003-1.gf.el7.x86_64.rpm
-    wget http://mirror.ghettoforge.org/distributions/gf/el/7/plus/x86_64/vim-minimal-8.0.003-1.gf.el7.x86_64.rpm
-    wget http://mirror.ghettoforge.org/distributions/gf/el/7/plus/x86_64/vim-enhanced-8.0.003-1.gf.el7.x86_64.rpm
-    sudo yum install -y vim*.rpm
-    rm vim*.rpm
-    cd -
-}
-
-function centos6_vim_inst()
-{
-    #install deps
-    sudo yum install -y git gcc gcc-c++ lua-devel ruby-devel perl-devel ncurses-devel make python-devel cmake perl-ExtUtils-Embed
-
-    #install python2.7
-    centos6_python2_inst
-
-    #install new vim
-    wget http://luajit.org/download/LuaJIT-2.0.4.tar.gz
-    tar xzvf LuaJIT-2.0.4.tar.gz && cd LuaJIT-2.0.4 && make -j$CORES && sudo make install
-    git clone https://github.com/vim/vim.git /tmp/vim
-    cd /tmp/vim && ./configure --prefix=/usr/local/vim --enable-multibyte --enable-fontset --enable-xim --enable-gui=auto --enable-cscope --with-x --with-compiledby=adam --with-luajit --enable-luainterp=dynamic --enable-pythoninterp=yes --enable-pythoninterp=dynamic --enable-python3interp=dynamic --with-python-config-dir=/usr/local/python2.7/lib/python2.7/config --enable-rubyinterp=dynamic --enable-rubyinterp=yes --enable-perlinterp=yes
-    make -j$CORES && sudo make install
-    sudo mv /usr/bin/vim /usr/bin/vim.bak
-    sudo ln -s /usr/local/vim/bin/vim /usr/bin/vim
-    cd $CURDIR
-}
-
-
-function centos6_python2_inst()
-{
-    yum install -y gcc gcc-c++
-    mkdir -p python2 && cd python2
-    wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz
-    tar -xvf Python-2.7.12.tgz
-    cd Python-2.7.12 && ./configure --prefix=/usr/local/python2.7 --with-threads --enable-shared
-    make -j$CORES && sudo make install altinstall
-    sudo ln -s /usr/local/python2.7/lib/libpython2.7.so /usr/lib
-    sudo ln -s /usr/local/python2.7/lib/libpython2.7.so.1.0 /usr/lib
-    sudo ln -s /usr/local/python2.7/bin/python2.7 /usr/local/bin
-    sudo /sbin/ldconfig -v
-    sudo mv /usr/bin/python /usr/bin/python.bak
-    sudo ln -s /usr/local/bin/python2.7 /usr/bin/python
-    sudo sed -i "s/python/python2.6/g" /usr/bin/yum
-
-}
-
-
-function ubuntu_vim_inst()
-{
-    #install deps
-    sudo apt-get update
-    sudo apt-get install -y git gcc g++ libluajit-5.1-dev ruby-dev libperl-dev ncurses-dev make python-dev cmake
-
-    #install new vim
-    rm -rf /tmp/vim
-    git clone https://github.com/vim/vim.git /tmp/vim
-    cd /tmp/vim && ./configure --prefix=/usr/local/vim --enable-multibyte --enable-fontset --enable-xim --enable-gui=auto --enable-cscope --with-x --with-compiledby=adam --with-luajit --enable-luainterp=dynamic --enable-pythoninterp=yes --enable-pythoninterp=dynamic --enable-python3interp=dynamic --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu --enable-rubyinterp=dynamic --enable-rubyinterp=yes --enable-perlinterp=yes
-    make -j$CORES && sudo make install
-    sudo mv /usr/bin/vim /usr/bin/vim.bak
-    sudo ln -s /usr/local/vim/bin/vim /usr/bin/vim
-    cd $CURDIR
 }
 
 
 function vimrc_inst()
 {
     #install depends
+    config
     vimrc_dep_inst
 
-    #install vim config and plugin
+    # install vim config and plugin
     mv ~/.vimrc ~/.vimrc.bak.`date +%Y%m%d%H%M%S`
     mv ~/.vim ~/.vim.bak.`date +%Y%m%d%H%M%S`
     cp -rf .vimrc ~
@@ -138,7 +192,7 @@ function vimrc_inst()
     
     #install ycm
     cd ~/.vim/plugged/YouCompleteMe/ ; git submodule update --init --recursive ; git submodule update --init --recursive ; ./install.py --all
-    
+    vim_inst
 }
 
 
@@ -147,9 +201,8 @@ if [ "$1" != ""  ];then
 fi
 case "$OBJ" in
     vimrc) vimrc_inst;;
-    vim8) vim8_inst;;
 
-    *)  echo "Usage: install {vimrc|vim8}" >&2
+    *)  echo "Usage: install {vimrc}" >&2
         exit 1
         ;;
 esac

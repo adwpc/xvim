@@ -89,6 +89,7 @@ let g:formatterpath = ['/usr/bin']
 let g:formatdef_c = '"astyle --style=google --indent=spaces=4 --indent-switches --indent-cases --indent-namespaces --indent-modifiers --indent-switches --indent-labels --indent-preproc-block --indent-preproc-define --break-blocks --pad-oper --pad-comma --pad-header --delete-empty-lines --convert-tabs --add-brackets --delete-empty-lines"'
 let g:formatters_cpp = ['c']
 let g:formatters_c = ['c']
+
 let g:formatdef_eslint = '"SRC=eslint-temp-${RANDOM}.js; cat - >$SRC; eslint --fix $SRC >/dev/null 2>&1; cat $SRC | perl -pe \"chomp if eof\"; rm -f $SRC"'
 let g:formatters_javascript = ['eslint']
 

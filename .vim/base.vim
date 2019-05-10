@@ -1,5 +1,7 @@
 
 "----------base config-----------
+" let g:python3_host_prog=''
+let g:python_host_prog='/usr/bin/python'
 set encoding=utf-8
 set hlsearch                                    " high light search"
 set ts=4                                        " 1 tab = 4 space"
