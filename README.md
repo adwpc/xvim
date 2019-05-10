@@ -36,12 +36,8 @@
 |c|★★☆|★★☆|★★|★★☆|★★|☆|
 |cpp|★★☆|★★☆|★★☆|★★☆|★★|☆|
 |golang|★★☆|★★☆|★★|★★☆|★☆|☆|
-|java|★★☆|★★☆|★★|★★☆|★|★|
-|lua|★☆|★☆|☆|★★☆|☆|★☆|
-|python|★★|★☆|★★|★★☆|☆|★★|
 |javascript|★|★★|☆|★★☆|☆|★★|
 |html|★|★|☆|★★☆|☆|★★|
-|php|★|★|☆|★★☆|☆|★★|
 |...|...|...|...|...|...|...|
 
 ## plugins and resources path
@@ -64,14 +60,12 @@ you can share some good plugins with me.
 
 ## install(中途vim-go安装工具时需使用翻墙网络)
 
-	git clone https://github.com/adwpc/vim.git
+	git clone https://github.com/adwpc/wow-vim.git
 	cd vim
 	
 	#install vimrc
 	./install vimrc
 	
-    #if you need new vim or some deps, see ./install
-    ./install
 
     #Q&A, see wiki first
 
