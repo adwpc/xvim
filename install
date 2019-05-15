@@ -107,7 +107,9 @@ function vimrc_dep_inst()
 {
    if [[ "$OS_TYPE" =~ "CentOS" ]];then
        if [[ "$BE" == "YES" ]];then
-           sudo yum install -y ctags cscope
+           sudo yum -y install epel-release
+           sudo yum install -y ctags cscope cmake python-devel git python python-pip gcc gcc-c++
+
        fi
        if [[ "$FE" == "YES" ]];then
            sudo yum install -y nodejs
@@ -118,7 +120,7 @@ function vimrc_dep_inst()
 
    if [[ "$OS_TYPE" == "Ubuntu" ]];then
        if [[ "$BE" == "YES" ]];then
-           sudo apt-get install -y ctags cscope
+           sudo apt-get install -y ctags cscope cmake python-dev git python python-pip gcc g++
        fi
        if [[ "$FE" == "YES" ]];then
            curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
@@ -130,7 +132,7 @@ function vimrc_dep_inst()
 
    if [[ "$OS_TYPE" == "Darwin" ]];then
        if [[ "$BE" == "YES" ]];then
-           brew install ctags cscope
+           brew install ctags cscope git
        fi
        if [[ "$FE" == "YES" ]];then
            brew install nodejs
@@ -140,33 +142,33 @@ function vimrc_dep_inst()
    fi
 }
 
-function nvim_inst()
+function linux_nvim_inst()
 {
     cd /tmp
     wget https://github.com/neovim/neovim/releases/download/v0.3.4/nvim-linux64.tar.gz
     sudo tar xf nvim-linux64.tar.gz -C /usr/local/
-    sudo mv /bin/vim /bin/vim.bak
+    sudo mv /bin/vim /bin/vim.bak.`date +%Y%m%d%H%M%S`
     sudo ln -s /usr/local/nvim-linux64/bin/nvim  /bin/vim
+    mv ~/.config/nvim ~/.config/nvim.bak.`date +%Y%m%d%H%M%S`
+    mv ~/.config/nvim/init.vim ~/.config/nvim/init.vim.bak.`date +%Y%m%d%H%M%S`
     mkdir -p ~/.config
     ln -s ~/.vim ~/.config/nvim
     ln -s ~/.vimrc ~/.config/nvim/init.vim
-    yum -y install epel-release
-    sudo yum install python python-pip
     sudo pip install pynvim
 }
 
 function vim_inst()
 {
     if [[ "$OS_TYPE" =~ "CentOS" && "$OS_VER" == "7" ]];then
-        nvim_inst
+        linux_nvim_inst
     fi
 
     if [[ "$OS_TYPE" =~ "CentOS" && "$OS_VER" == "6" ]];then
-        nvim_inst
+        linux_nvim_inst
     fi
 
     if [[ "$OS_TYPE" == "Ubuntu" ]];then
-        nvim_inst
+        linux_nvim_inst
     fi
 
     if [[ "$OS_TYPE" == "Darwin" ]];then
