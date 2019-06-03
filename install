@@ -173,6 +173,8 @@ function vim_inst()
 
     if [[ "$OS_TYPE" == "Darwin" ]];then
         brew install neovim
+        pip2 install neovim
+        pip3 install neovim
     fi
 }
 
