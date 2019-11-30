@@ -145,7 +145,7 @@ function vimrc_dep_inst()
 function linux_nvim_inst()
 {
     cd /tmp
-    wget https://github.com/neovim/neovim/releases/download/v0.3.4/nvim-linux64.tar.gz
+    wget https://github.com/neovim/neovim/releases/download/v0.4.3/nvim-linux64.tar.gz
     sudo tar xf nvim-linux64.tar.gz -C /usr/local/
     sudo mv /bin/vim /bin/vim.bak.`date +%Y%m%d%H%M%S`
     sudo ln -s /usr/local/nvim-linux64/bin/nvim  /bin/vim
@@ -154,7 +154,9 @@ function linux_nvim_inst()
     mkdir -p ~/.config
     ln -s ~/.vim ~/.config/nvim
     ln -s ~/.vimrc ~/.config/nvim/init.vim
+    sudo yum install -y python python3
     sudo pip install pynvim
+    sudo pip3 install pynvim
 }
 
 function vim_inst()
