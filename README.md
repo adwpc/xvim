@@ -61,7 +61,7 @@ you can share some good plugins with me.
 ## install(中途vim-go安装工具时需使用翻墙网络)
 
 	git clone https://github.com/adwpc/xvim.git
-	cd vim
+	cd xvim
 	
 	#install vimrc
 	./install vimrc
